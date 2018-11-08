@@ -26,7 +26,7 @@ map = '';
 
 [player,playerSymbol] = characterCreation();
 
-while player.Stats(4) ~= 0
+while player.Health ~= 0
 [lastTile,lastLocation] = buildMap(location,map,playerSymbol);
 event = eventGenerator(lastTile);
 

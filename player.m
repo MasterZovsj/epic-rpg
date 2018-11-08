@@ -20,12 +20,12 @@ classdef player
     
     methods
         %Build a constructor to easily define the player in main.m
-        function obj = player(class,weapon,str,spd,luck,health,exp)
+        function obj = player(class,weapon,str,spd,luck,health)
             %CLASS Construct an instance of this class
             %   Takes the inputed values when called and creates an
             %   instance of the player class. 
             if nargin > 0 %Make sure the proper amount of args were passed in
-                if isstring(weapon) && isstring(class) && isnumeric(str) && isnumeric(spd) && isnumeric(luck) && isnumeric(health) && isnumeric(exp) 
+                if isstring(weapon) && isstring(class) && isnumeric(str) && isnumeric(spd) && isnumeric(luck) && isnumeric(health) 
                     %Weapon and Class must be a string - Stats must be
                     %numeric.
                     obj.Class = class;
@@ -35,7 +35,6 @@ classdef player
                     obj.Spd = spd;
                     obj.Luck = luck;
                     obj.Health = health;
-                    obj.Exp = exp;
                 else
                     error('You screwed up somewhere, bud. [Player class constructor]')
                 end
