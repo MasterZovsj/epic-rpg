@@ -1,4 +1,5 @@
-%% TODONE
+%% TODO
+% Broke the weapon damage - need to include that in player class.
 
 function [thisPlayer,playerSymbol] = characterCreation()
 %CHARACTERCREATION Creates a diaog box for the player to select their class
@@ -65,8 +66,7 @@ btn = uicontrol('Parent', d,...
     'Callback','delete(gcf)');
 playerClass = "Swordsman";
 playerWeapon = "Axe";
-% disp(playerClass)
-% disp(playerWeapon)
+
 %% callback funtions
 uiwait(d);
     function popup_callback(popup,~)
@@ -84,16 +84,28 @@ uiwait(d);
 %% assign stats
     switch(playerClass)
         case classOptions(1)
-            classStats = [5 2 3];
+%             classStats = [5 2 3];
+            str = 5;
+            spd = 2;
+            luck =3;
             health = 8.0;
         case classOptions(2)
-            classStats = [3 5 2];
+%             classStats = [3 5 2];
+            str = 3;
+            spd = 5;
+            luck = 2;
             health = 6.0;
         case classOptions(3)
-            classStats = [4 1 4];
+%             classStats = [4 1 4];
+            str = 3;
+            spd = 1;
+            luck = 5;
             health = 10.0;
         case classOptions(4)
-            classStats = [3 3 3];
+%             classStats = [3 3 3];
+            str = 3;
+            spd = 3;
+            luck = 3;
             health = 7.0;
         otherwise
             error('This isn''t a class option!')
@@ -110,11 +122,9 @@ uiwait(d);
         otherwise
             error('This isn''t a weapon option!')
     end
-    playerStats = [classStats weaponStats];
+    playerStats = [weaponStats];
 %% CREATE PLAYER
-thisPlayer = player(playerClass,playerWeapon,playerStats,health);
+thisPlayer = player(playerClass,playerWeapon,str,spd,luck,health);
 c = char(thisPlayer.Class);
 playerSymbol = c(1);
 end
-
-
