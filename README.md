@@ -9,7 +9,7 @@
                                by                                       
                            Micah Fierro                                  
                            Gary Jackson                                  
-                           Troy                                              
+                           Troy Plageman                                             
                                                                          
   Robert Pitman-Gammon            Dec. 10 2018              Final Project 
 ***************************************************************************
