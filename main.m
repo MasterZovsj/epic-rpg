@@ -7,7 +7,7 @@
 *    `------'`--'     `--' `-----'    `--' '--'`--'      `------'         *                                                       *                                by                                       *
 *                           Micah Fierro                                  *
 *                           Gary Jackson                                  *
-*                                                                         *
+*                           Troy Plageman                                 *
 *                                                                         *
 * Robert Pitman-Gammon            Dec. 10 2018              Final Project *
 ***************************************************************************
@@ -15,7 +15,6 @@
 
 clear
 clc
-%% Testing GitHub Push
 %% GLOBAL VARIABLES
 global START_GAME
 START_GAME = true;
