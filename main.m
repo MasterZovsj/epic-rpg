@@ -17,7 +17,7 @@
 
 clear
 clc
-%% Testing GitHub Push
+
 %% GLOBAL VARIABLES
 global START_GAME
 START_GAME = true;
