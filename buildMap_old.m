@@ -1,3 +1,4 @@
+%% OLD AND DEAD
 %%  TODO
 %1. Use random variables to build the map size - min 5x5,max 50,50
 %2. Fix game crash when non integer is inputed

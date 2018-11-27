@@ -1,5 +1,5 @@
 function [outputArg1,outputArg2] = buildMap(inputArg1,inputArg2)
-%UNTITLED3 Summary of this function goes here
+%BUILDMAP v2.0 Creates the base map and rooms
 %   Detailed explanation goes here
 %define the total map reigon
 map_width = 120;
