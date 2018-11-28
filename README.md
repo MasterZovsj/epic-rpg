@@ -6,12 +6,12 @@
     |  `--, |  '--' ||  ||  |        |  '--'.'|  '--' ||  | .---.        
     |  `---.|  | --' |  |'  '--'\    |  |\  \ |  | --' '  '--'  |        
     `------'`--'     `--' `-----'    `--' '--'`--'      `------'   
-                               by                                       
-                           Micah Fierro                                  
-                           Gary Jackson                                  
-                           Troy Plageman                                             
-                                                                         
-  Robert Pitman-Gammon            Dec. 10 2018              Final Project 
+                                       by                                       
+                                   Micah Fierro                                  
+                                   Gary Jackson                                  
+                                   Troy Plageman
+                                   
+    Robert Pittman-Gammon          Dec. 10 2018            Final Project
 ***************************************************************************
 
 
@@ -25,4 +25,4 @@ Enemies generated for a single encounter, and were not persistent.
 
 New design includes a map that contains several rooms, each with its own monster/treasure posibilies. Player is free to move between the rooms.
 The enemies should be defined and stay on the map until killed. They should persist to kill the player.
-Player now has an inventory and can use items in the inventory during combat situations.
+Player now has an inventory and can use items in the inventory during combat situations
