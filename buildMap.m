@@ -23,21 +23,22 @@ for j=1:map_width
 end
 
 %% generate a room
-room_num=3;
+room_num=5;
 for k=1:room_num
-x_start = randi([2,map_width-1]);
-y_start = randi([2,map_height-1]);
-roomwidth = randi([5,30]);
-roomheight = randi([5,30]);
-    for j=1:roomwidth
-        for i=1:roomheight  
+room_height = randi([5,15]);
+room_width = randi([5,30]);
+x_start = randi([2,map_width-room_width]);
+y_start = randi([2,map_height-room_height]);
+    
+    for j=1:room_height
+        for i=1:room_width  
             if i==1
                 map(y_start+j,x_start+i)='#'; %used on the upper border
-            elseif i==roomheight
+            elseif i==room_width
                 map(y_start+j,x_start+i)='#'; %used on lower border
             elseif j==1
                 map(y_start+j,x_start+i)='#'; %used on left border
-            elseif j==roomwidth
+            elseif j==room_height
                 map(y_start+j,x_start+i)='#'; %used on right border
             else
                 map(y_start+j,x_start+i)=' '; %used everywhere else
@@ -45,5 +46,6 @@ roomheight = randi([5,30]);
         end
     end
 end
+disp(map)
 end
 
