@@ -27,6 +27,7 @@ for jj=1:mapColumns
 end
 %% generate a room
 room_num=5; %determines number of rooms
+locations=zeros([room_num,4]);
 for kk=1:room_num
     %randomly create the size of the room within 5x5 to 15x30
     roomRows = randi([5,15]);
@@ -48,6 +49,7 @@ for kk=1:room_num
             end
         end
     end
+    
 %Save the room in a cell array
 rooms(kk)={room};
 %clear the room variable
@@ -62,15 +64,37 @@ for ii=1:numel(rooms)
     %border of the master map
     startColumn = randi([2,mapColumns-roomColumn]);
     startRow = randi([2,mapRows-roomRow]);
-    
+    if ii~=1
+        while (startColumn>locations(:,1))&(startColumn<locations(:,2))
+            startColumn = randi([2,mapColumns-roomColumn]);
+        end
+        while (startRow>locations(:,3))&(startRow<locations(:,4))
+            startRow = randi([2,mapRows-roomRow]);
+        end
+
+    end
+
     %define the last row and column of the room within the map
-    lastRoomRow=startRow+roomRow-1;
-    lastRoomColumn=startColumn+roomColumn-1;
+    lastRow=startRow+roomRow-1;
+    lastColumn=startColumn+roomColumn-1;
+    %save rooms location
+
+    locations(ii,:)=[startColumn,lastColumn,startRow,lastRow];
+
+%     for aa=2:1:length(locations)
+%         if (locations(aa,1)>locations(aa-1,1)&&locations(aa,1)<locations(aa-1,2))
+%             fprintf("yes")
+%         else
+%             fprintf("No")
+%         end
+%     end
     
     %No need to check if the room fits, the selection of startRow and
     %startColumn take into account the size of the room during selection
-    map(startRow:lastRoomRow,startColumn:lastRoomColumn)=rooms{ii};
+    map(startRow:lastRow,startColumn:lastColumn)=rooms{ii};
 end
+%% Build Hallways
+
 disp(map)
 end
 
