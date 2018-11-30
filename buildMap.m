@@ -23,7 +23,7 @@ for jj=1:mapColumns
         elseif jj==mapColumns
             map(ii,jj)='|'; %used on right border
         else
-            map(ii,jj)=' '; %used everywhere else
+            map(ii,jj)=':'; %used everywhere else
         end
     end
 end
@@ -62,13 +62,23 @@ for ii=1:numel(rooms)
     %select a starting location for the room
     %make sure the selection cannot result in the room going over the
     %border of the master map
+    %% Define all variables for room placement
+    %variables to determine the starting and ending posistions of the room
     startColumn = randi([2,mapColumns-roomColumn]);
     startRow = randi([2,mapRows-roomRow]);
     lastRow=startRow+roomRow-1;
     lastColumn=startColumn+roomColumn-1;
+    %variables used in the logic when determining if the room will fit
     overlaps=0;
     abort=false;
+    
+    %% Logic block to test location of room versus other rooms
     if ii~=1
+        % this really ugly block of logic checks to see if any of the
+        % corners of the rooms we are going to place are inside of any
+        % other room on our list. It stores each possible collision as a
+        % single value in a column vector (i.e. 100x1 where the first
+        % number is determined by the number of rooms generated).
        overlaps =(startColumn>=locations(:,3)-1)&(startColumn<=locations(:,4)+1)&...
                 (lastRow>=locations(:,1)-1)&(lastRow<=locations(:,2)+1)|...%checks if the bottom left corner is in another box
                 (lastColumn>=locations(:,3)-1)&(lastColumn<=locations(:,4)+1)&...
@@ -79,22 +89,33 @@ for ii=1:numel(rooms)
                 (lastRow>=locations(:,1)-1)&(lastRow<=locations(:,2)+1);%checks if the bottom right corner is in another box
                 %BL or TR or TL or BR corners are in a box, return true.
     end
+    %after we have a list of all the collisions, run through that list
+    %checking each one. Once we find a collusion, stop searching and set
+    %abort to true.
     for mm=1:numel(overlaps)
         if overlaps(mm)==true
             abort=true;
             break;
         end
     end
+    %If we do fine a collusion, abort will be true. When about is true we
+    %simply move on to the next room in the list. If abort is false, we can
+    %safely store and place this room before moving on to the next room.
     if abort==true
         continue;
     else
             %save rooms location
             locations(ii,:)=[startRow,lastRow,startColumn,lastColumn];
-            %No need to check if the room fits, the selection of startRow and
-            %startColumn take into account the size of the room during selection
+            %No need to check if the room fits in the master room, the 
+            %selection of startRow and startColumn take into account the 
+            %size of the room during selection
+            
+            %paste the room into the map!
             map(startRow:lastRow,startColumn:lastColumn)=rooms{ii};
     end
 end
+%display the map -- may change this to simply output the map so I can use
+%it later.
 disp(map)
 end
 
