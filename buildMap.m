@@ -1,4 +1,4 @@
-function [map] = buildMap()
+function [] = buildMap()
 %% TODO
 %Make hallways to rooms that do not touch
 %Add Doors between rooms
@@ -6,10 +6,12 @@ function [map] = buildMap()
 %BUILDMAP v2.0 Creates the base map and rooms
 %   Detailed explanation goes here
 %#ok<*AGROW> 
+%#ok<*AND2>
 %define the total map reigon
 mapColumns = 120;
 mapRows = 45;
-
+room_num=100; %determines number of rooms
+locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
 for jj=1:mapColumns
     for ii=1:mapRows
         if ii==1
@@ -26,12 +28,10 @@ for jj=1:mapColumns
     end
 end
 %% generate a room
-room_num=5; %determines number of rooms
-locations=zeros([room_num,4]);
 for kk=1:room_num
     %randomly create the size of the room within 5x5 to 15x30
-    roomRows = randi([5,15]);
-    roomColumns = randi([5,30]);
+    roomRows = randi([5,10]);
+    roomColumns = randi([5,15]);
     %build the walls around the edge of the room
     %fill the center with spaces
     for jj=1:roomRows
@@ -64,37 +64,37 @@ for ii=1:numel(rooms)
     %border of the master map
     startColumn = randi([2,mapColumns-roomColumn]);
     startRow = randi([2,mapRows-roomRow]);
-    if ii~=1
-        while (startColumn>locations(:,1))&(startColumn<locations(:,2))
-            startColumn = randi([2,mapColumns-roomColumn]);
-        end
-        while (startRow>locations(:,3))&(startRow<locations(:,4))
-            startRow = randi([2,mapRows-roomRow]);
-        end
-
-    end
-
-    %define the last row and column of the room within the map
     lastRow=startRow+roomRow-1;
     lastColumn=startColumn+roomColumn-1;
-    %save rooms location
-
-    locations(ii,:)=[startColumn,lastColumn,startRow,lastRow];
-
-%     for aa=2:1:length(locations)
-%         if (locations(aa,1)>locations(aa-1,1)&&locations(aa,1)<locations(aa-1,2))
-%             fprintf("yes")
-%         else
-%             fprintf("No")
-%         end
-%     end
-    
-    %No need to check if the room fits, the selection of startRow and
-    %startColumn take into account the size of the room during selection
-    map(startRow:lastRow,startColumn:lastColumn)=rooms{ii};
+    overlaps=0;
+    abort=false;
+    if ii~=1
+       overlaps =(startColumn>=locations(:,3)-1)&(startColumn<=locations(:,4)+1)&...
+                (lastRow>=locations(:,1)-1)&(lastRow<=locations(:,2)+1)|...%checks if the bottom left corner is in another box
+                (lastColumn>=locations(:,3)-1)&(lastColumn<=locations(:,4)+1)&...
+                (startRow>=locations(:,1)-1)&(startRow<=locations(:,2)+1)|...%checks if the top right corner is in another box
+                (startColumn>=locations(:,3)-1)&(startColumn<=locations(:,4)+1)&...
+                (startRow>=locations(:,1)-1)&(startRow<=locations(:,2)+1)|...%checks if the top left corner is in another box
+                (lastColumn>=locations(:,3)-1)&(lastColumn<=locations(:,4)+1)&...
+                (lastRow>=locations(:,1)-1)&(lastRow<=locations(:,2)+1);%checks if the bottom right corner is in another box
+                %BL or TR or TL or BR corners are in a box, return true.
+    end
+    for mm=1:numel(overlaps)
+        if overlaps(mm)==true
+            abort=true;
+            break;
+        end
+    end
+    if abort==true
+        continue;
+    else
+            %save rooms location
+            locations(ii,:)=[startRow,lastRow,startColumn,lastColumn];
+            %No need to check if the room fits, the selection of startRow and
+            %startColumn take into account the size of the room during selection
+            map(startRow:lastRow,startColumn:lastColumn)=rooms{ii};
+    end
 end
-%% Build Hallways
-
 disp(map)
 end
 
