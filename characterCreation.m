@@ -17,8 +17,8 @@ function [thisPlayer,playerSymbol] = characterCreation()
 %   DD = Direct Damage, DF = Defense
 
 %% Class and Weapon options
-classOptions = {'Swordsman' 'Ninja' 'Pirate' 'Farmer'};
-weaponOptions = {'Axe' 'Blunderbuss' 'Katana' 'Pitchfork'};
+classOptions = {'Nurse' 'Construction Worker' 'Cook' 'Gambler'};
+weaponOptions = {'2x4 Board' 'Old Pipe' 'Clay Brick' 'Splintered Shovel'};
 
 %% Declare variables
 %Edit these to change the character creation dialog box
@@ -124,7 +124,7 @@ uiwait(d);
     end
     playerStats = [weaponStats];
 %% CREATE PLAYER
-thisPlayer = player(playerClass,playerWeapon,str,spd,luck,health);
+thisPlayer = newplayer(playerClass,playerWeapon,str,spd,luck,health);
 c = char(thisPlayer.Class);
 playerSymbol = c(1);
 end
