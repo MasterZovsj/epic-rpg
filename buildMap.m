@@ -114,7 +114,71 @@ for ii=1:numel(rooms)
             map(startRow:lastRow,startColumn:lastColumn)=rooms{ii};
     end
 end
-%display the map -- may change this to simply output the map so I can use
+%% Build the maze
+% pick a starting point
+startMazeColumns = randi(mapColumns);
+startMazeRows = randi(mapRows);
+% make sure its not in a room
+while map(startMazeRows,startMazeColumns) ~= ":"
+    startMazeColumns = randi(mapColumns);
+    startMazeRows = randi(mapRows);
+end
+map(startMazeRows,startMazeColumns) = '+';
+cellList = {[startMazeRows,startMazeColumns]};
+for oo=1:5000
+    pickCell=randi(numel(cellList));
+    getCell=cellList{pickCell};
+    newColumn=getCell(2);
+    newRow=getCell(1);
+    direction = randi([1,4]);
+    switch(direction)
+        case 1 %up or decrease row
+            if newRow-1<2
+                continue
+            elseif map(newRow-1,newColumn)=='#'
+                continue
+            else
+            newRow=newRow-1;
+            end
+        case 2%down or increase row
+            if newRow+1>mapRows-1
+                continue
+            elseif map(newRow+1,newColumn)=='#'
+                continue
+            else
+            newRow=newRow+1;
+            end
+        case 3%left or decrease column
+            if newColumn-1<2
+                continue
+            elseif map(newRow,newColumn-1)=='#'
+                continue
+            else
+            newColumn=newColumn-1;
+            end
+        case 4%right or increase column
+            if newColumn+1>mapColumns-1
+                continue
+            elseif map(newRow,newColumn+1)=='#'
+                continue
+            else
+            newColumn=newColumn+1;
+            end
+    end
+    map(newRow,newColumn)='+';
+    cellList = {[newRow,newColumn]};
+    disp(map)
+end
+% if map(newColumn+1,newRow)=='+'&&...
+%         map(newColumn-1,newRow)=='+'||...
+%         map(newColumn,newRow+1)=='+'&&...
+%         map(newColumn,newRow-1)=='+'
+%     cellList(pickCell)=[];
+% elseif 
+%     randi
+% end
+%% display the map
+%may change this to simply output the map so I can use
 %it later.
 disp(map)
 end
