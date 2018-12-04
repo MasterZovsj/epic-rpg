@@ -11,6 +11,7 @@ function [] = buildMap()
 mapColumns = 120;
 mapRows = 45;
 room_num=100; %determines number of rooms
+pastDirections=zeros(1,3);%used to keep track of hallway generation
 locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
 for jj=1:mapColumns
     for ii=1:mapRows
@@ -125,22 +126,25 @@ while map(startMazeRows,startMazeColumns) ~= ":"
 end
 map(startMazeRows,startMazeColumns) = '+';
 cellList(1) = {[startMazeRows,startMazeColumns]};
-lastDirection=0;
-notDirection=0;
 for oo=1:5000
     pickCell=randi(numel(cellList));
     getCell=cellList{pickCell};
     newColumn=getCell(2);
     newRow=getCell(1);
     direction = randi([1,4]);
-    if notDirection==direction
-        continue
+    
+    if map(newRow+1,newColumn)=='+'&&map(newRow-1,newColumn)=='+'...
+            ||map(newRow,newColumn-1)=='+'&&map(newRow,newColumn+1)=='+'
+        cellList(pickCell)=[];
+    end
+    while pastDirections(1)==direction
+    direction = randi([1,4]);
     end
     switch(direction)
         case 1 %up or decrease row
             if newRow-1<2
                 continue
-            elseif map(newRow-1,newColumn)=='#'
+            elseif map(newRow-1,newColumn)=='#'||map(newRow-1,newColumn)=='+'
                 continue
             else
             newRow=newRow-1;
@@ -148,7 +152,7 @@ for oo=1:5000
         case 2%down or increase row
             if newRow+1>mapRows-1
                 continue
-            elseif map(newRow+1,newColumn)=='#'
+            elseif map(newRow+1,newColumn)=='#'||map(newRow+1,newColumn)=='+'
                 continue
             else
             newRow=newRow+1;
@@ -156,7 +160,7 @@ for oo=1:5000
         case 3%left or decrease column
             if newColumn-1<2
                 continue
-            elseif map(newRow,newColumn-1)=='#'
+            elseif map(newRow,newColumn-1)=='#'||map(newRow,newColumn-1)=='+'
                 continue
             else
             newColumn=newColumn-1;
@@ -164,18 +168,18 @@ for oo=1:5000
         case 4%right or increase column
             if newColumn+1>mapColumns-1
                 continue
-            elseif map(newRow,newColumn+1)=='#'
+            elseif map(newRow,newColumn+1)=='#'||map(newRow,newColumn+1)=='+'
                 continue
             else
             newColumn=newColumn+1;
             end
     end
     map(newRow,newColumn)='+';
-    cellList(oo) = {[newRow,newColumn]};
+    cellList(end+1) = {[newRow,newColumn]};
     disp(map)
     %save the direction from two direction ago
-    notDirection=lastDirection;
-    lastDirection=direction;
+    pastDirections(end+1)=direction;
+    pastDirections(1)=[];
 
 end
 % if map(newColumn+1,newRow)=='+'&&...
