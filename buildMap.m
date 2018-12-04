@@ -124,13 +124,18 @@ while map(startMazeRows,startMazeColumns) ~= ":"
     startMazeRows = randi(mapRows);
 end
 map(startMazeRows,startMazeColumns) = '+';
-cellList = {[startMazeRows,startMazeColumns]};
+cellList(1) = {[startMazeRows,startMazeColumns]};
+lastDirection=0;
+notDirection=0;
 for oo=1:5000
     pickCell=randi(numel(cellList));
     getCell=cellList{pickCell};
     newColumn=getCell(2);
     newRow=getCell(1);
     direction = randi([1,4]);
+    if notDirection==direction
+        continue
+    end
     switch(direction)
         case 1 %up or decrease row
             if newRow-1<2
@@ -166,8 +171,12 @@ for oo=1:5000
             end
     end
     map(newRow,newColumn)='+';
-    cellList = {[newRow,newColumn]};
+    cellList(oo) = {[newRow,newColumn]};
     disp(map)
+    %save the direction from two direction ago
+    notDirection=lastDirection;
+    lastDirection=direction;
+
 end
 % if map(newColumn+1,newRow)=='+'&&...
 %         map(newColumn-1,newRow)=='+'||...
