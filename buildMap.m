@@ -1,9 +1,6 @@
 %% buildMap.m function
 % version 2.4
 function [] = buildMap()
-    %% TODO
-    %Make hallways to rooms that do not touch
-    %Add Doors between rooms
 %%
 %BUILDMAP v2.0 Creates the base map and rooms
 %   Detailed explanation goes here
@@ -14,7 +11,7 @@ function [] = buildMap()
 mapColumns = 120;
 mapRows = 45;
 room_num=100; %determines number of rooms
-%%%%pastDirections=zeros(1,3);%used to keep track of hallway generation
+% % % % pastDirections=zeros(1,3);%used to keep track of hallway generation
 %% Define chars
 HALLWAY_CHAR=' ';
 ROOMWALL_CHAR=' ';
@@ -23,6 +20,7 @@ MASTERMAP_SIDE_CHAR='|';
 MASTERMAP_TOP_CHAR='-';
 MASTERMAP_BOTTOM_CHAR='*';
 MASTERMAP_IMPASSABLE_CHAR='#';
+EVENT_CHAR='!';
 
 locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
 %% Build the master map
@@ -71,11 +69,10 @@ for kk=1:room_num
             end
         end
     end
-%     room(1,randi([2,roomColumns-1]))='D';
-% 	room(roomRows,randi([2,roomColumns-1]))='D';
-%     room(randi([2,roomRows-1]),1)='D';
-%     room(randi([2,roomRows-1]),roomColumns)='D';
-
+%%% Add three places for treasure/monster
+for oo=1:randi([0,4])
+    room(randi([2,roomRows-1]),randi([2,roomColumns-1]))=EVENT_CHAR;
+end
 %Save the room in a cell array
 rooms(kk)={room};
 %clear the room variable
@@ -218,19 +215,16 @@ end
 % % % %     pastDirections(1)=[];
 % % % % 
 % % % % end
-%% Connect doors with hallways
-
-
 %% display the map
 %may change this to simply output the map so I can use
 %it later.
 disp(map)
-        function [me] = combineOverlap(up,down,right,left,me)
-            if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
-                me=MOVEABLE_CHAR;  
-             
-            end
-        end
+function [me] = combineOverlap(up,down,right,left,me)
+    if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
+        me=MOVEABLE_CHAR;  
+
+    end
+end
 end
 
 
