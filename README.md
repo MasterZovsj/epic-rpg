@@ -30,8 +30,8 @@ Player now has an inventory and can use items in the inventory during combat sit
 
 TODO: <br>
 &nbsp;&nbsp;+Maps<br>
-&nbsp;&nbsp;&nbsp;&nbsp;-Add Doors<br>
-&nbsp;&nbsp;&nbsp;&nbsp;-Add Hallways using a maze algorithm (growing tree seems promising http://www.astrolog.org/labyrnth/algrithm.htm)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-Add Doors<br> DONE
+&nbsp;&nbsp;&nbsp;&nbsp;-Add Hallways using a maze algorithm (growing tree seems promising http://www.astrolog.org/labyrnth/algrithm.htm)<br> NOT DONE, BUT IMPLEMINTED NEW SYSTEM
 &nbsp;&nbsp;&nbsp;&nbsp;-Add locations for event<br>
 &nbsp;&nbsp;&nbsp;&nbsp;-Depth for multiple maps and increasing difficulty<br>
 &nbsp;&nbsp;+Player<br>
