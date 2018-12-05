@@ -14,24 +14,41 @@ function [] = buildMap()
 mapColumns = 120;
 mapRows = 45;
 room_num=100; %determines number of rooms
-pastDirections=zeros(1,3);%used to keep track of hallway generation
+%%%%pastDirections=zeros(1,3);%used to keep track of hallway generation
+%% Define chars
+HALLWAY_CHAR=' ';
+ROOMWALL_CHAR=' ';
+MOVEABLE_CHAR=' ';
+MASTERMAP_SIDE_CHAR='|';
+MASTERMAP_TOP_CHAR='-';
+MASTERMAP_BOTTOM_CHAR='*';
+MASTERMAP_IMPASSABLE_CHAR='#';
+
 locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
 %% Build the master map
 for jj=1:mapColumns
     for ii=1:mapRows
         if ii==1
-            map(ii,jj)='-'; %used on the upper border
+            map(ii,jj)=MASTERMAP_BOTTOM_CHAR; %used on the upper border
         elseif ii==mapRows
-            map(ii,jj)='-'; %used on lower border
+            map(ii,jj)=MASTERMAP_TOP_CHAR; %used on lower border
         elseif jj==1
-            map(ii,jj)='|'; %used on left border
+            map(ii,jj)=MASTERMAP_SIDE_CHAR; %used on left border
         elseif jj==mapColumns
-            map(ii,jj)='|'; %used on right border
+            map(ii,jj)=MASTERMAP_SIDE_CHAR; %used on right border
         else
-            map(ii,jj)=':'; %used everywhere else
+            map(ii,jj)=MASTERMAP_IMPASSABLE_CHAR; %used everywhere else
         end
     end
 end
+%% Build some random hallways on the map
+for jj=1:20
+    startMazeColumns = randi([2,mapColumns-2]); % pick a random starting point
+    startMazeRows = randi([2,mapRows-2]);       % pick a random starting point
+    map(startMazeRows:mapRows-2,startMazeColumns)=HALLWAY_CHAR;
+    map(startMazeRows,startMazeColumns:mapColumns-2)=HALLWAY_CHAR;
+end
+
 %% generate a room
 for kk=1:room_num
     %randomly create the size of the room within 5x5 to 15x30
@@ -42,22 +59,22 @@ for kk=1:room_num
     for jj=1:roomRows
         for ii=1:roomColumns  
             if ii==1
-                room(jj,ii)='#'; %used on the upper border
+                room(jj,ii)=ROOMWALL_CHAR; %used on the upper border
             elseif ii==roomColumns
-                room(jj,ii)='#'; %used on lower border
+                room(jj,ii)=ROOMWALL_CHAR; %used on lower border
             elseif jj==1
-                room(jj,ii)='#'; %used on left border
+                room(jj,ii)=ROOMWALL_CHAR; %used on left border
             elseif jj==roomRows
-                room(jj,ii)='#'; %used on right border
+                room(jj,ii)=ROOMWALL_CHAR; %used on right border
             else
-                room(jj,ii)=' '; %used everywhere else
+                room(jj,ii)=MOVEABLE_CHAR; %used everywhere else
             end
         end
     end
-    room(1,randi([2,roomColumns-1]))='D';
-	room(roomRows,randi([2,roomColumns-1]))='D';
-    room(randi([2,roomRows-1]),1)='D';
-    room(randi([2,roomRows-1]),roomColumns)='D';
+%     room(1,randi([2,roomColumns-1]))='D';
+% 	room(roomRows,randi([2,roomColumns-1]))='D';
+%     room(randi([2,roomRows-1]),1)='D';
+%     room(randi([2,roomRows-1]),roomColumns)='D';
 
 %Save the room in a cell array
 rooms(kk)={room};
@@ -201,17 +218,21 @@ end
 % % % %     pastDirections(1)=[];
 % % % % 
 % % % % end
+%% Connect doors with hallways
+
+
 %% display the map
 %may change this to simply output the map so I can use
 %it later.
 disp(map)
-end
         function [me] = combineOverlap(up,down,right,left,me)
-            if me == '#' && ((up==' '&&down==' ')||(right==' '&&left==' '))
-                me=' ';  
+            if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
+                me=MOVEABLE_CHAR;  
              
             end
         end
+end
+
 
 
         
