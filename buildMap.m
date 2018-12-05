@@ -1,18 +1,22 @@
+%% buildMap.m function
+% version 2.4
 function [] = buildMap()
-%% TODO
-%Make hallways to rooms that do not touch
-%Add Doors between rooms
+    %% TODO
+    %Make hallways to rooms that do not touch
+    %Add Doors between rooms
 %%
 %BUILDMAP v2.0 Creates the base map and rooms
 %   Detailed explanation goes here
 %#ok<*AGROW> 
 %#ok<*AND2>
+%% Define variables
 %define the total map reigon
 mapColumns = 120;
 mapRows = 45;
 room_num=100; %determines number of rooms
 pastDirections=zeros(1,3);%used to keep track of hallway generation
 locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
+%% Build the master map
 for jj=1:mapColumns
     for ii=1:mapRows
         if ii==1
@@ -50,7 +54,11 @@ for kk=1:room_num
             end
         end
     end
-    
+    room(1,randi([2,roomColumns-1]))='D';
+	room(roomRows,randi([2,roomColumns-1]))='D';
+    room(randi([2,roomRows-1]),1)='D';
+    room(randi([2,roomRows-1]),roomColumns)='D';
+
 %Save the room in a cell array
 rooms(kk)={room};
 %clear the room variable
@@ -114,85 +122,96 @@ for ii=1:numel(rooms)
             %paste the room into the map!
             map(startRow:lastRow,startColumn:lastColumn)=rooms{ii};
     end
-end
-%% Build the maze
-% pick a starting point
-startMazeColumns = randi(mapColumns);
-startMazeRows = randi(mapRows);
-% make sure its not in a room
-while map(startMazeRows,startMazeColumns) ~= ":"
-    startMazeColumns = randi(mapColumns);
-    startMazeRows = randi(mapRows);
-end
-map(startMazeRows,startMazeColumns) = '+';
-cellList(1) = {[startMazeRows,startMazeColumns]};
-for oo=1:5000
-    pickCell=randi(numel(cellList));
-    getCell=cellList{pickCell};
-    newColumn=getCell(2);
-    newRow=getCell(1);
-    direction = randi([1,4]);
-    
-    if map(newRow+1,newColumn)=='+'&&map(newRow-1,newColumn)=='+'...
-            ||map(newRow,newColumn-1)=='+'&&map(newRow,newColumn+1)=='+'
-        cellList(pickCell)=[];
+    for nn=2:mapColumns-1
+        for pp=2:mapRows-1
+        map(pp,nn)=combineOverlap(map(pp-1,nn),map(pp+1,nn),map(pp,nn+1),map(pp,nn-1),map(pp,nn));
+        end
     end
-    while pastDirections(1)==direction
-    direction = randi([1,4]);
-    end
-    switch(direction)
-        case 1 %up or decrease row
-            if newRow-1<2
-                continue
-            elseif map(newRow-1,newColumn)=='#'||map(newRow-1,newColumn)=='+'
-                continue
-            else
-            newRow=newRow-1;
-            end
-        case 2%down or increase row
-            if newRow+1>mapRows-1
-                continue
-            elseif map(newRow+1,newColumn)=='#'||map(newRow+1,newColumn)=='+'
-                continue
-            else
-            newRow=newRow+1;
-            end
-        case 3%left or decrease column
-            if newColumn-1<2
-                continue
-            elseif map(newRow,newColumn-1)=='#'||map(newRow,newColumn-1)=='+'
-                continue
-            else
-            newColumn=newColumn-1;
-            end
-        case 4%right or increase column
-            if newColumn+1>mapColumns-1
-                continue
-            elseif map(newRow,newColumn+1)=='#'||map(newRow,newColumn+1)=='+'
-                continue
-            else
-            newColumn=newColumn+1;
-            end
-    end
-    map(newRow,newColumn)='+';
-    cellList(end+1) = {[newRow,newColumn]};
-    disp(map)
-    %save the direction from two direction ago
-    pastDirections(end+1)=direction;
-    pastDirections(1)=[];
-
 end
-% if map(newColumn+1,newRow)=='+'&&...
-%         map(newColumn-1,newRow)=='+'||...
-%         map(newColumn,newRow+1)=='+'&&...
-%         map(newColumn,newRow-1)=='+'
-%     cellList(pickCell)=[];
-% elseif 
-%     randi
-% end
+%% Build the maze HIGHLY IMPORTANT FOR LATER MAZE GENERATION
+% % % % startMazeColumns = randi(mapColumns); % pick a random starting point
+% % % % startMazeRows = randi(mapRows);       % pick a random starting point
+% % % % % make sure its not in a room
+% % % % while map(startMazeRows,startMazeColumns) ~= ":"
+% % % %     startMazeColumns = randi(mapColumns);
+% % % %     startMazeRows = randi(mapRows);
+% % % % end
+% % % % map(startMazeRows,startMazeColumns) = '+'; %set the inital point to a hallway
+% % % % cellList(1) = {[startMazeRows,startMazeColumns]}; %save the first cell of hallway
+% % % % while isempty(cellList) == false %change this to go until all cells are filled - DONE
+% % % %     pickCell=randi(numel(cellList));
+% % % %     getCell=cellList{end};%pickCell};
+% % % %     newColumn=getCell(2);
+% % % %     newRow=getCell(1);
+% % % %     direction = randi([1,4]);
+% % % %     
+% % % %     if (map(newRow+1,newColumn)=='+') + (map(newRow-1,newColumn)=='+') +...
+% % % %             (map(newRow,newColumn-1)=='+') + (map(newRow,newColumn+1)=='+') >= 2
+% % % %             
+% % % %         cellList(pickCell)=[];
+% % % %         
+% % % %     end
+% % % %     % Check to prevent choosing the opposite direction from last choice
+% % % %     while pastDirections(1)==1&&direction==2||...   if up, no down
+% % % %             pastDirections(1)==2&&direction==1||... if down, no up
+% % % %             pastDirections(1)==3&&direction==4||... if left, no right
+% % % %             pastDirections(1)==4&&direction==3%     if right, no left
+% % % %     direction = randi([1,4]);
+% % % %     end
+% % % %     switch(direction)
+% % % %         case 1 %up or decrease row
+% % % %             if newRow-1<2
+% % % %                 continue
+% % % %             elseif map(newRow-1,newColumn)=='#'||map(newRow-1,newColumn)=='+'||map(newRow-1,newColumn)=='D'
+% % % %                 continue
+% % % %             else
+% % % %             newRow=newRow-1;
+% % % %             end
+% % % %         case 2%down or increase row
+% % % %             if newRow+1>mapRows-1
+% % % %                 continue
+% % % %             elseif map(newRow+1,newColumn)=='#'||map(newRow+1,newColumn)=='+'||map(newRow+1,newColumn)=='D'
+% % % %                 continue
+% % % %             else
+% % % %             newRow=newRow+1;
+% % % %             end
+% % % %         case 3%left or decrease column
+% % % %             if newColumn-1<2
+% % % %                 continue
+% % % %             elseif map(newRow,newColumn-1)=='#'||map(newRow,newColumn-1)=='+'
+% % % %                 continue
+% % % %             else
+% % % %             newColumn=newColumn-1;
+% % % %             end
+% % % %         case 4%right or increase column
+% % % %             if newColumn+1>mapColumns-1
+% % % %                 continue
+% % % %             elseif map(newRow,newColumn+1)=='#'||map(newRow,newColumn+1)=='+'
+% % % %                 continue
+% % % %             else
+% % % %             newColumn=newColumn+1;
+% % % %             end
+% % % %     end
+% % % %     map(newRow,newColumn)='+';
+% % % %     cellList(end+1) = {[newRow,newColumn]};
+% % % %     disp(map)
+% % % %     %save the direction and delete the direction from three moves ago
+% % % %     %this is so we can constantly get the direction from 2 movies ago
+% % % %     pastDirections(end+1)=direction;
+% % % %     pastDirections(1)=[];
+% % % % 
+% % % % end
 %% display the map
 %may change this to simply output the map so I can use
 %it later.
 disp(map)
 end
+        function [me] = combineOverlap(up,down,right,left,me)
+            if me == '#' && ((up==' '&&down==' ')||(right==' '&&left==' '))
+                me=' ';  
+             
+            end
+        end
 
+
+        
