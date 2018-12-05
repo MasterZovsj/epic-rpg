@@ -10,8 +10,7 @@
 *                           Gary  Jackson                                 *
 *                           Troy Plageman                                 *
 *                                                                         *
-*                                                                         *
-* Robert Pitman-Gammon            Dec. 10 2018              Final Project *
+*     Robert Pitman-Gammon           Dec. 10 2018           Final Project *
 ***************************************************************************
 %}
 
