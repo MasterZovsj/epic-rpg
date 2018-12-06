@@ -1,6 +1,6 @@
 %% buildMap.m function
 % version 2.4
-function [] = buildMap()
+function [map] = buildMap()
 %%
 %BUILDMAP v2.0 Creates the base map and rooms
 %   Detailed explanation goes here
@@ -218,7 +218,6 @@ end
 %% display the map
 %may change this to simply output the map so I can use
 %it later.
-disp(map)
 function [me] = combineOverlap(up,down,right,left,me)
     if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
         me=MOVEABLE_CHAR;  

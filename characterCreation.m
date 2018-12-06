@@ -64,8 +64,8 @@ btn = uicontrol('Parent', d,...
     'Position',[btn_position btn_size],...
     'String','I accept my mission!',...
     'Callback','delete(gcf)');
-playerClass = "Swordsman";
-playerWeapon = "Axe";
+playerClass = 'Nurse';
+playerWeapon = '2x4 Board';
 
 %% callback funtions
 uiwait(d);
