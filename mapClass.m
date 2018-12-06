@@ -14,13 +14,13 @@ classdef mapClass
     
     methods
         function obj = mapClass(fullMap)
-            %UNTITLED Construct an instance of this class
+            %mapClass Construct an instance of this class
             %   Detailed explanation goes here
             if nargin > 0 %Make sure the proper amount of args were passed in
                 if ischar(fullMap) 
                   obj.fullMap = fullMap;
                 else
-                    error('You screwed up somewhere, bud. [Player class constructor]')
+                    error('Map must be char matrix!')
                 end
             end 
         end

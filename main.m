@@ -19,14 +19,32 @@ clc
 
 %% GLOBAL VARIABLES
 global START_GAME
-START_GAME = true;
+global PLAYER_SYMBOL
+global HALLWAY_CHAR
+global ROOMWALL_CHAR
+global MOVEABLE_CHAR
+global MASTERMAP_SIDE_CHAR
+global MASTERMAP_TOP_CHAR
+global MASTERMAP_BOTTOM_CHAR
+global MASTERMAP_IMPASSABLE_CHAR
+global EVENT_CHAR
 %% Initialize variables
+PLAYER_SYMBOL = '@';
+START_GAME = true;
+HALLWAY_CHAR=' ';
+ROOMWALL_CHAR=' ';
+MOVEABLE_CHAR=' ';
+MASTERMAP_SIDE_CHAR='|';
+MASTERMAP_TOP_CHAR='-';
+MASTERMAP_BOTTOM_CHAR='*';
+MASTERMAP_IMPASSABLE_CHAR='#';
+EVENT_CHAR='!';
 currentLocation = [];
 %% MAIN CODE
-[player,playerSymbol] = characterCreation();
+thisPlayer=newplayerCreation();
 thisMap=mapClass(buildMap());
 disp(thisMap.fullMap)
-while 1 == true
+while thisPlayer.Health >= 0
     currentLocation=movePlayer(currentLocation,thisMap);
 end
 %% END GAME
