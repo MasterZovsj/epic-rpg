@@ -35,5 +35,6 @@ classdef newplayer < character
                         'ListString',player.Inventory);
             item = string(item);
         end
+        
     end
 end

@@ -39,28 +39,28 @@ function newPlayer = newplayerCreation()
 
     switch(class)
         case classOptions(1) %Nurse
-            str = 2;
-            def = 2;
-            spd = 5;
-            luck = 2;
+            str = 5;
+            def = 5;
+            spd = 8;
+            luck = 5;
             health = 40;
         case classOptions(2) %Construction Worker
-            str = 5;
-            def = 3;
-            spd = 1;
-            luck = 2;
+            str = 8;
+            def = 6;
+            spd = 4;
+            luck = 5;
             health = 45;
         case classOptions(3) % Cook
-            str = 3;
-            def = 4;
-            spd = 3;
-            luck = 1;
+            str = 7;
+            def = 8;
+            spd = 7;
+            luck = 4;
             health = 50;
         case classOptions(4) % Gambler
-            str = 2;
-            def = 1;
-            spd = 3;
-            luck = 5;
+            str = 7;
+            def = 4;
+            spd = 6;
+            luck = 8;
             health = 40;
     end
     
