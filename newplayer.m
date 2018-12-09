@@ -28,5 +28,12 @@ classdef newplayer < character
                 p.Inventory = [];
             end
         end
+        
+        function item = inventory(player)
+            item = listdlg('PromptString','Select a weapon',...
+                        'SelectionMode','single',...
+                        'ListString',player.Inventory);
+            item = string(item);
+        end
     end
 end
