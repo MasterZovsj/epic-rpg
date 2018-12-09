@@ -19,28 +19,33 @@ clc
 
 %% GLOBAL VARIABLES
 global START_GAME
-START_GAME = true;
+global PLAYER_SYMBOL
+global HALLWAY_CHAR
+global ROOMWALL_CHAR
+global MOVEABLE_CHAR
+global MASTERMAP_SIDE_CHAR
+global MASTERMAP_TOP_CHAR
+global MASTERMAP_BOTTOM_CHAR
+global MASTERMAP_IMPASSABLE_CHAR
+global EVENT_CHAR
 %% Initialize variables
-location = [];
-map = '';
-
+PLAYER_SYMBOL = '@';
+START_GAME = true;
+HALLWAY_CHAR=' ';
+ROOMWALL_CHAR=' ';
+MOVEABLE_CHAR=' ';
+MASTERMAP_SIDE_CHAR='|';
+MASTERMAP_TOP_CHAR='-';
+MASTERMAP_BOTTOM_CHAR='*';
+MASTERMAP_IMPASSABLE_CHAR='#';
+EVENT_CHAR='!';
+currentLocation = [];
 %% MAIN CODE
-
-[player,playerSymbol] = characterCreation();
-
-while player.Health ~= 0
-[lastTile,lastLocation] = buildMap(location,map,playerSymbol);
-event = eventGenerator(lastTile);
-
-% switch(event)
-%     case 4
-%         
-%     otherwise
-%         fprintf('lol not yet')
-% end
-        
-player.Health = player.Health - 0.5; %temp to end while loop
-
+thisPlayer=newplayerCreation();
+thisMap=mapClass(buildMap());
+disp(thisMap.fullMap)
+while thisPlayer.Health >= 0
+    currentLocation=movePlayer(currentLocation,thisMap);
 end
 %% END GAME
 fprintf('YOU DUN DIED SON\n')

@@ -1,6 +1,6 @@
 %% buildMap.m function
 % version 2.4
-function [] = buildMap()
+function [map] = buildMap()
 %%
 %BUILDMAP v2.0 Creates the base map and rooms
 %   Detailed explanation goes here
@@ -13,14 +13,14 @@ mapRows = 45;
 room_num=100; %determines number of rooms
 % % % % pastDirections=zeros(1,3);%used to keep track of hallway generation
 %% Define chars
-HALLWAY_CHAR=' ';
-ROOMWALL_CHAR=' ';
-MOVEABLE_CHAR=' ';
-MASTERMAP_SIDE_CHAR='|';
-MASTERMAP_TOP_CHAR='-';
-MASTERMAP_BOTTOM_CHAR='*';
-MASTERMAP_IMPASSABLE_CHAR='#';
-EVENT_CHAR='!';
+global HALLWAY_CHAR
+global ROOMWALL_CHAR
+global MOVEABLE_CHAR
+global MASTERMAP_SIDE_CHAR
+global MASTERMAP_TOP_CHAR
+global MASTERMAP_BOTTOM_CHAR
+global MASTERMAP_IMPASSABLE_CHAR
+global EVENT_CHAR
 
 locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
 %% Build the master map
@@ -40,7 +40,7 @@ for jj=1:mapColumns
     end
 end
 %% Build some random hallways on the map
-for jj=1:20
+for jj=1:30
     startMazeColumns = randi([2,mapColumns-2]); % pick a random starting point
     startMazeRows = randi([2,mapRows-2]);       % pick a random starting point
     map(startMazeRows:mapRows-2,startMazeColumns)=HALLWAY_CHAR;
@@ -215,16 +215,16 @@ end
 % % % %     pastDirections(1)=[];
 % % % % 
 % % % % end
-%% display the map
-%may change this to simply output the map so I can use
-%it later.
-disp(map)
-function [me] = combineOverlap(up,down,right,left,me)
-    if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
-        me=MOVEABLE_CHAR;  
+%% 
+    function [me] = combineOverlap(up,down,right,left,me)
+        if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
+            me=MOVEABLE_CHAR;  
 
+        end
     end
-end
+    function[] = generateEvent()
+        
+    end
 end
 
 
