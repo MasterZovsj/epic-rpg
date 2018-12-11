@@ -12,12 +12,11 @@ global MASTERMAP_BOTTOM_CHAR
         [ii,jj]=find(thisMap.fullMap==' ');
         kk=[ii,jj];
         currentLocation=kk(randi(length(kk)),:);
-%         playerLocation=thisMap.fullMap(currentLocation(1),currentLocation(2));
         thisMap.fullMap(currentLocation(1),currentLocation(2)) = PLAYER_SYMBOL;
         START_GAME=false;
     end
 %% MAP NAVIGATION
-thisMap.fullMap(currentLocation(1),currentLocation(2)) = '@';
+thisMap.fullMap(currentLocation(1),currentLocation(2)) = PLAYER_SYMBOL;
 
 disp(thisMap.fullMap)
 fprintf('What direction would you like to go?\n(''8'' north | ''2'' south | ''4'' west | ''6'' east)\n')

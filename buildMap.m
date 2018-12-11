@@ -6,13 +6,13 @@ function [map] = buildMap()
 %   Detailed explanation goes here
 %#ok<*AGROW> 
 %#ok<*AND2>
-%% Define variables
+%% Initialize variables
 %define the total map reigon
 mapColumns = 120;
 mapRows = 45;
 room_num=100; %determines number of rooms
 % % % % pastDirections=zeros(1,3);%used to keep track of hallway generation
-%% Define chars
+%% Get Global vars
 global HALLWAY_CHAR
 global ROOMWALL_CHAR
 global MOVEABLE_CHAR
@@ -21,8 +21,7 @@ global MASTERMAP_TOP_CHAR
 global MASTERMAP_BOTTOM_CHAR
 global MASTERMAP_IMPASSABLE_CHAR
 global EVENT_CHAR
-
-locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
+global DEPTH
 %% Build the master map
 for jj=1:mapColumns
     for ii=1:mapRows
@@ -48,6 +47,7 @@ for jj=1:30
 end
 
 %% generate a room
+locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
 for kk=1:room_num
     %randomly create the size of the room within 5x5 to 15x30
     roomRows = randi([5,10]);
@@ -215,6 +215,11 @@ end
 % % % %     pastDirections(1)=[];
 % % % % 
 % % % % end
+%% call event generator 
+[ii,jj]=find(thisMap.fullMap=='!');
+kk=[ii,jj];
+eventLocation=kk(randi(length(kk)),:);
+thisMap.fullMap(eventLocation(1),eventLocation(2)) = generateEvent(DEPTH);
 %% 
     function [me] = combineOverlap(up,down,right,left,me)
         if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
@@ -222,8 +227,9 @@ end
 
         end
     end
-    function[] = generateEvent()
-        
+    function[event] = generateEvent(depth)
+        if randi([0,1])==1
+            
     end
 end
 

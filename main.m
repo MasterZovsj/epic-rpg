@@ -28,6 +28,7 @@ global MASTERMAP_TOP_CHAR
 global MASTERMAP_BOTTOM_CHAR
 global MASTERMAP_IMPASSABLE_CHAR
 global EVENT_CHAR
+global DEPTH
 %% Initialize variables
 PLAYER_SYMBOL = '@';
 START_GAME = true;
@@ -39,6 +40,7 @@ MASTERMAP_TOP_CHAR='-';
 MASTERMAP_BOTTOM_CHAR='*';
 MASTERMAP_IMPASSABLE_CHAR='#';
 EVENT_CHAR='!';
+DEPTH = 1;
 currentLocation = [];
 %% MAIN CODE
 thisPlayer=newplayerCreation();
