@@ -10,8 +10,8 @@ classdef newplayer < character
     end
     
     methods
-        function p = newplayer(name,class,weapon,str,def,spd,luck,health)
-            p@character(weapon,str,def,spd,health,1);
+        function p = newplayer(name,class,weapon,str,def,spd,luck,health,location)
+            p@character(weapon,str,def,spd,health,1,location);
             if nargin == 0
                 error('Null argument in player constructor.')
             elseif isstring(name) == false

@@ -6,8 +6,8 @@ classdef newenemy < character
     end
     
     methods
-        function e = newenemy(type,weapon,str,def,spd,health,level)
-            e@character(weapon,str,def,spd,health,level);
+        function e = newenemy(type,weapon,str,def,spd,health,level,location)
+            e@character(weapon,str,def,spd,health,level,location);
             if nargin == 0
                 error('Null argument in enemy constructor.')
             elseif isstring(type) == false
