@@ -16,5 +16,9 @@ classdef newenemy < character
                 e.Type = type;
             end
         end
+    %---------------------------------------------------------------------------------------------------------------%
+        function name = getName(enemy) % Returns the enemy name.
+            name = enemy.Type;
+        end
     end
 end

@@ -4,9 +4,9 @@ classdef newplayer < character
     properties
         Name
         Class
-        Exp
+        Exp = 0
         Luck
-        Inventory
+        Inventory = []
     end
     
     methods
@@ -23,12 +23,14 @@ classdef newplayer < character
             else
                 p.Name = name;
                 p.Class = class;
-                p.Exp = 0;
                 p.Luck = luck;
-                p.Inventory = [];
             end
         end
     %---------------------------------------------------------------------------------------------------------------%
+        function name = getName(player) % Returns the player name.
+            name = player.Name;
+        end
+
         function item = inventory(player) % Allows the player to access their inventory.
             item = listdlg('PromptString','Select a weapon',...
                         'SelectionMode','single',...

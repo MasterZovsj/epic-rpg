@@ -44,6 +44,37 @@ classdef character
             end
         end
     %---------------------------------------------------------------------------------------------------------------%
+        function def = getDef(char) % Returns the character's defense.
+            def = char.Def;
+        end
+
+        function health = getHealth(char) % Returns the character's health.
+            health = char.Health;
+        end
+
+        function spd = getSpd(char) % Returns the character's speed.
+            spd = char.Spd;
+        end
+
+        function str = getStr(char) % Returns the character's strength.
+            str = char.Str;
+        end
+
+        function alive = isAlive(char) % Returns true if character is alive.
+            if char.Health > 0
+                alive = true;
+            else
+                alive = false;
+            end
+        end
+        
+        function char = takeDamage(char,damage) %Deals given damage to the character and returns the updated character.
+            char.Health = char.Health - damage;
+            if char.Health < 0
+                char.Health = 0;
+            end
+        end
+
         function char = updateLocation(char,loc) % Returns the character with an updated location.
             char.Location = loc;
         end

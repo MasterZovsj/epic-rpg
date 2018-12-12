@@ -229,10 +229,6 @@ thisMap.fullMap(eventLocation(1),eventLocation(2)) = generateEvent(DEPTH);
     end
     function[event] = generateEvent(depth)
         if randi([0,1])==1
-            
+        end
     end
 end
-
-
-
-        
