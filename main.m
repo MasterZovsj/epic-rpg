@@ -48,6 +48,7 @@ thisMap=mapClass(buildMap());
 disp(thisMap.fullMap)
 while thisPlayer.Health >= 0
     currentLocation=movePlayer(currentLocation,thisMap);
+    thisPlayer = thisPlayer.updateLocation(currentLocation);
 end
 %% END GAME
 fprintf('YOU DUN DIED SON\n')

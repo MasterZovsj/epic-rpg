@@ -12,7 +12,7 @@ classdef character
     end
     
     methods
-        function obj = character(weapon,str,def,spd,health,level,location)
+        function obj = character(weapon,str,def,spd,health,level,location) % Parent class constructor for all game characters.
             if nargin == 0
                 error('Null argument in Character constructor.')
             elseif isstring(weapon) == false
@@ -42,6 +42,10 @@ classdef character
                 obj.Level = level;
                 obj.Location = location;
             end
+        end
+    %---------------------------------------------------------------------------------------------------------------%
+        function char = updateLocation(char,loc) % Returns the character with an updated location.
+            char.Location = loc;
         end
     end
 end

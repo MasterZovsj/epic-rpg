@@ -10,7 +10,7 @@ classdef newplayer < character
     end
     
     methods
-        function p = newplayer(name,class,weapon,str,def,spd,luck,health,location)
+        function p = newplayer(name,class,weapon,str,def,spd,luck,health,location) % Constructor for a new player.
             p@character(weapon,str,def,spd,health,1,location);
             if nargin == 0
                 error('Null argument in player constructor.')
@@ -28,13 +28,12 @@ classdef newplayer < character
                 p.Inventory = [];
             end
         end
-        
-        function item = inventory(player)
+    %---------------------------------------------------------------------------------------------------------------%
+        function item = inventory(player) % Allows the player to access their inventory.
             item = listdlg('PromptString','Select a weapon',...
                         'SelectionMode','single',...
                         'ListString',player.Inventory);
             item = string(item);
         end
-        
     end
 end

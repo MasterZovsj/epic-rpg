@@ -1,5 +1,7 @@
 function newPlayer = newplayerCreation()
     % A function to start player creation on a new playable character.
+    
+    startLocation = [5,5];
 
     classOptions = {'Nurse' 'Construction Worker' 'Cook' 'Gambler'};
     weaponOptions = {'2x4 Board' 'Corroded Pipe' 'Clay Brick' 'Splintered Shovel'};
@@ -83,5 +85,5 @@ function newPlayer = newplayerCreation()
             spd = spd+2;
     end
     
-    newPlayer = newplayer(name,class,weapon,str,def,spd,luck,health);
+    newPlayer = newplayer(name,class,weapon,str,def,spd,luck,health,startLocation);
 end
