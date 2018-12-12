@@ -136,6 +136,8 @@ for ii=1:numel(rooms)
             %paste the room into the map!
             map(startRow:lastRow,startColumn:lastColumn)=rooms{ii};
     end
+    % Check for any rooms that overlap across each other and make them into
+    % one room
     for nn=2:mapColumns-1
         for pp=2:mapRows-1
         map(pp,nn)=combineOverlap(map(pp-1,nn),map(pp+1,nn),map(pp,nn+1),map(pp,nn-1),map(pp,nn));
@@ -216,19 +218,30 @@ end
 % % % % 
 % % % % end
 %% call event generator 
-[ii,jj]=find(thisMap.fullMap=='!');
+% Does not currently work
+[ii,jj]=find(map=='!');
 kk=[ii,jj];
-eventLocation=kk(randi(length(kk)),:);
-thisMap.fullMap(eventLocation(1),eventLocation(2)) = generateEvent(DEPTH);
-%% 
+
+for zz=1:length(kk)
+    getEvent = kk(zz,:);
+    map(getEvent(1),getEvent(2)) = generateEvent(DEPTH,zz);
+end
+%% Functions used by buildMap.m
     function [me] = combineOverlap(up,down,right,left,me)
         if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
             me=MOVEABLE_CHAR;  
 
         end
     end
-    function[event] = generateEvent(depth)
+    function[icon] = generateEvent(depth,counter)
+        level=randi([0,5]);
         if randi([0,1])==1
+            thisEnemy=newenemyGenerator(level,depth);
+            enemyName=char(thisEnemy.Type);
+            icon=enemyName(1);
+            assignin('base',"enemy"+int2str(counter),thisEnemy)
+        else
+            icon='T';
         end
     end
 end
