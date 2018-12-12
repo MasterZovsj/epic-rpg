@@ -4,7 +4,7 @@ function [thisEnemy] = newenemyGenerator(level,depth)
 
     location = [0,0];
 
-    typeOptions = {{'Bat' 'Thief' 'Roach'} {'Dog' 'Bandit' 'Scorpion'} {'Wolf' 'Assassin' 'Giant Centipede'} {'Warg'}};
+    typeOptions = {{'bat' 'Thief' 'Roach'} {'Dog' 'Bandit' 'Scorpion'} {'Wolf' 'Assassin' 'Giant Centipede'} {'Warg'}};
     weaponOptions = {{'2x4 Board' 'Corroded Pipe' 'Clay Brick' 'Splintered Shovel'} {'Reinforced Board' 'Old Pipe' 'Stone Brick' 'Stone Shovel'} {'Nail Board' 'New Pipe' 'Steel Brick' 'Steel Shovel'} {'Death Claws'}};
 
     i = randi(numel(typeOptions{depth}));

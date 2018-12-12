@@ -235,13 +235,13 @@ end
     end
     function[icon] = generateEvent(depth,counter)
         level=randi([0,5]);
-        if randi([0,1])==1
+%         if randi([0,1])==1
             thisEnemy=newenemyGenerator(level,depth);
             enemyName=char(thisEnemy.Type);
             icon=enemyName(1);
             assignin('base',"enemy"+int2str(counter),thisEnemy)
-        else
-            icon='T';
-        end
+%         else
+%             icon='T';
+%         end
     end
 end
