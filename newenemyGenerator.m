@@ -1,10 +1,12 @@
-function [thisEnemy] = newenemyGenerator(level,depth)
+function [thisEnemy] = newenemyGenerator(level,depth,location)
 % A function that takes the level of a monster and the depth of the floor
 % and returns a randomly generated enemy based on input data.
 
-    location = [0,0];
+    if isnumeric(location) == false || isvector(location) == false
+        location = [0,0];
+    end
 
-    typeOptions = {{'bat' 'Thief' 'Roach'} {'Dog' 'Bandit' 'Scorpion'} {'Wolf' 'Assassin' 'Giant Centipede'} {'Warg'}};
+    typeOptions = {{'Bat' 'Thief' 'Roach'} {'Dog' 'Bandit' 'Scorpion'} {'Wolf' 'Assassin' 'Giant Centipede'} {'Warg'}};
     weaponOptions = {{'2x4 Board' 'Corroded Pipe' 'Clay Brick' 'Splintered Shovel'} {'Reinforced Board' 'Old Pipe' 'Stone Brick' 'Stone Shovel'} {'Nail Board' 'New Pipe' 'Steel Brick' 'Steel Shovel'} {'Death Claws'}};
 
     i = randi(numel(typeOptions{depth}));

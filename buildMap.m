@@ -224,7 +224,7 @@ kk=[ii,jj];
 
 for zz=1:length(kk)
     getEvent = kk(zz,:);
-    map(getEvent(1),getEvent(2)) = generateEvent(DEPTH,zz);
+    map(getEvent(1),getEvent(2)) = generateEvent(DEPTH,zz,getEvent);
 end
 %% Functions used by buildMap.m
     function [me] = combineOverlap(up,down,right,left,me)
@@ -233,10 +233,10 @@ end
 
         end
     end
-    function[icon] = generateEvent(depth,counter)
+    function[icon] = generateEvent(depth,counter,location)
         level=randi([0,5]);
 %         if randi([0,1])==1
-            thisEnemy=newenemyGenerator(level,depth);
+            thisEnemy=newenemyGenerator(level,depth,location);
             enemyName=char(thisEnemy.Type);
             icon=enemyName(1);
             assignin('base',"enemy"+int2str(counter),thisEnemy)
