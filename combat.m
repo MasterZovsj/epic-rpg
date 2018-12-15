@@ -1,4 +1,6 @@
 function [player,enemy] = combat(player,enemy)
+% This function takes two characters as input, makes them fight until one
+% of them dies, and then returns both players with updated health.
     if player.getSpd() >= enemy.getSpd() % Player goes first.
         attack = player;
         defend = enemy;

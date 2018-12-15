@@ -13,8 +13,8 @@ function newPlayer = newplayerCreation()
                 'distant amber light bulb covered by a broken glass globe filled with the';
                 'corpses of moths and flys. The paint on the walls has begun to peel from';
                 'years of neglect. The sound of old creeky hardwood flooring slats can be';
-                'heard from just can be heard from just above. The room is windowless, the';
-                'only exit is a windowless steel door.'});
+                'heard from just above. The room is windowless, the only exit is a';
+                'windowless steel door.'});
     uiwait(m);
     class = listdlg('PromptString','Select your occupation',...
                         'SelectionMode','single',...
@@ -22,7 +22,7 @@ function newPlayer = newplayerCreation()
     class = string(classOptions(class));
     m = msgbox({'The scene is unfamiliar as yesterday you were working as a';
                 class+' with a family.';
-                'You have arrived in this room through a black hole. The room';
+                'You have arrived in this room through a wormhole. The room';
                 'has a variety of building materieral that could be of use to';
                 'defend yourself 2x4 boards,old corroded galvanized pipe, red';
                 'clay bricks, and a splintered wood handled shovel.'});
@@ -41,7 +41,7 @@ function newPlayer = newplayerCreation()
 
     switch(class)
         case classOptions(1) %Nurse
-            str = 5;
+            str = 6;
             def = 5;
             spd = 8;
             luck = 5;
@@ -59,7 +59,7 @@ function newPlayer = newplayerCreation()
             luck = 4;
             health = 50;
         case classOptions(4) % Gambler
-            str = 7;
+            str = 6;
             def = 4;
             spd = 6;
             luck = 8;

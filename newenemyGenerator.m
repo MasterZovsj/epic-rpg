@@ -23,17 +23,17 @@ function [thisEnemy] = newenemyGenerator(level,depth,location)
             health = 25*level;
         case typeOptions{depth}(1) % Bat, Dog, Wolf
             str = 3*level;
-            def = 3*level;
+            def = 1*level;
             spd = 4*level;
             health = 15*level;
         case typeOptions{depth}(2) % Thief, Bandit and Assassin
-            str = 3*level;
-            def = 3*level;
+            str = 4*level;
+            def = 2*level;
             spd = 3*level;
             health = 20*level;
         case typeOptions{depth}(3) % Roach, Scorpion and Giant Centipede
             str = 2*level;
-            def = 2*level;
+            def = 0*level;
             spd = 5*level;
             health = 10*level;
     end
