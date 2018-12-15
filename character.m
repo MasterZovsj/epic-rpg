@@ -1,7 +1,7 @@
 classdef character
     %Parent class for all playable characters in the game.
     
-    properties
+    properties % All characters in the game share these attributes.
         Level
         Weapon
         Str
@@ -13,19 +13,19 @@ classdef character
     
     methods
         function obj = character(weapon,str,def,spd,health,level,location) % Parent class constructor for all game characters.
-            if nargin == 0
+            if nargin == 0 % Checks for any null arguments.
                 error('Null argument in Character constructor.')
-            elseif isstring(weapon) == false
+            elseif isstring(weapon) == false % Checks to make sure that weapon is a string.
                 error('Weapon needs to be a string.')
-            elseif isscalar(str) == false
+            elseif isscalar(str) == false % Checks to make sure that strength is a number.
                 error('Strength needs to be scalar.')
-            elseif isscalar(def) == false
+            elseif isscalar(def) == false % Checks to make sure that defense is a number.
                 error('Defense needs to be scalar.')
-            elseif isscalar(spd) == false
+            elseif isscalar(spd) == false % Checks to make sure that speed is a number.
                 error('Speed needs to be scalar.')
-            elseif isscalar(health) == false
+            elseif isscalar(health) == false % Checks to make sure that health is a number.
                 error('Health needs to be scalar.')
-            elseif isnumeric(location) == false || isvector(location) == false
+            elseif isnumeric(location) == false || isvector(location) == false % Checks to make sure that location is an araay of numbers.
                 if isnumeric(location) == false && isvector(location) == false
                     error("Location isn't an array or numeric.")
                 elseif isnumeric(location) == false
@@ -33,7 +33,7 @@ classdef character
                 elseif isvector(location) == false
                     error('Location needs to be a vector.')
                 end
-            else
+            else % Assigns values.
                 obj.Weapon = weapon;
                 obj.Str = str;
                 obj.Def = def;

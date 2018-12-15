@@ -1,14 +1,12 @@
 function newPlayer = newplayerCreation()
     % A function to start player creation on a new playable character.
     
-    startLocation = [5,5];
+    startLocation = [5,5]; % Defines a start location.
 
-    classOptions = {'Nurse' 'Construction Worker' 'Cook' 'Gambler'};
-    weaponOptions = {'2x4 Board' 'Corroded Pipe' 'Clay Brick' 'Splintered Shovel'};
-    
-    j = randi(numel(weaponOptions));
-    
-    m = msgbox({'You have woken up in a cold,dark room with cinder block walls covered in';
+    classOptions = {'Nurse' 'Construction Worker' 'Cook' 'Gambler'}; % Defines some class options.
+    weaponOptions = {'2x4 Board' 'Corroded Pipe' 'Clay Brick' 'Splintered Shovel'}; % Defines some starting weapons.
+
+    m = msgbox({'You have woken up in a cold,dark room with cinder block walls covered in'; % Introduction scene.
                 'years and years of mildew and vacancy. The only light is emitted by one';
                 'distant amber light bulb covered by a broken glass globe filled with the';
                 'corpses of moths and flys. The paint on the walls has begun to peel from';
@@ -16,27 +14,27 @@ function newPlayer = newplayerCreation()
                 'heard from just above. The room is windowless, the only exit is a';
                 'windowless steel door.'});
     uiwait(m);
-    class = listdlg('PromptString','Select your occupation',...
+    class = listdlg('PromptString','Select your occupation',... % Asks the player to select an occupation.
                         'SelectionMode','single',...
                         'ListString',classOptions);
-    class = string(classOptions(class));
-    m = msgbox({'The scene is unfamiliar as yesterday you were working as a';
+    class = string(classOptions(class)); % Sets class to the player's selection.
+    m = msgbox({'The scene is unfamiliar as yesterday you were working as a'; % The player discovers some starting weapons.
                 class+' with a family.';
                 'You have arrived in this room through a wormhole. The room';
                 'has a variety of building materieral that could be of use to';
                 'defend yourself 2x4 boards,old corroded galvanized pipe, red';
                 'clay bricks, and a splintered wood handled shovel.'});
     uiwait(m);
-    weapon = listdlg('PromptString','Select a weapon',...
+    weapon = listdlg('PromptString','Select a weapon',... % Lets the player select a weapon to take with them.
                         'SelectionMode','single',...
                         'ListString',weaponOptions);
-    weapon = string(weaponOptions(weapon));
+    weapon = string(weaponOptions(weapon)); % Sets weapon to the player's selection.
     m = msgbox({'You are all alone in this dark room clueless of what awaits on the other';
                     'side of the windowless steel door. You have no friends, no family and';
                     'nobody to call for help. The only way out of this nightmare is through';
                     'the door.'});
     uiwait(m);
-    name = inputdlg('What is your name?');
+    name = inputdlg('What is your name?'); % Asks for the player's name.
     name = string(name(1));
 
     switch(class)
@@ -85,5 +83,5 @@ function newPlayer = newplayerCreation()
             spd = spd+2;
     end
     
-    newPlayer = newplayer(name,class,weapon,str,def,spd,luck,health,startLocation);
+    newPlayer = newplayer(name,class,weapon,str,def,spd,luck,health,startLocation); % Creates the new player.
 end

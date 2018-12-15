@@ -1,16 +1,21 @@
 function [thisEnemy] = newenemyGenerator(level,depth,location)
 % A function that takes the level of a monster and the depth of the floor
 % and returns a randomly generated enemy based on input data.
-
-    if isnumeric(location) == false || isvector(location) == false
+    if isnumeric(level) == false % Defaults level to 1 if it's not passed in.
+        level = 1;
+    end
+    if isnumeric(depth) == false % Defaults depth to 1 if it's not passed in.
+        depth = 1;
+    end
+    if isnumeric(location) == false || isvector(location) == false % Defaults location to [0,0] if it's not passed in.
         location = [0,0];
     end
 
-    typeOptions = {{'Bat' 'Thief' 'Roach'} {'Dog' 'Bandit' 'Scorpion'} {'Wolf' 'Assassin' 'Giant Centipede'} {'Warg'}};
-    weaponOptions = {{'2x4 Board' 'Corroded Pipe' 'Clay Brick' 'Splintered Shovel'} {'Reinforced Board' 'Old Pipe' 'Stone Brick' 'Stone Shovel'} {'Nail Board' 'New Pipe' 'Steel Brick' 'Steel Shovel'} {'Death Claws'}};
+    typeOptions = {{'Bat' 'Thief' 'Roach'} {'Dog' 'Bandit' 'Scorpion'} {'Wolf' 'Assassin' 'Giant Centipede'} {'Warg'}}; % Defines some type options.
+    weaponOptions = {{'2x4 Board' 'Corroded Pipe' 'Clay Brick' 'Splintered Shovel'} {'Reinforced Board' 'Old Pipe' 'Stone Brick' 'Stone Shovel'} {'Nail Board' 'New Pipe' 'Steel Brick' 'Steel Shovel'} {'Death Claws'}}; % Defines some weapon options.
 
-    i = randi(numel(typeOptions{depth}));
-    j = randi(numel(weaponOptions{depth}));
+    i = randi(numel(typeOptions{depth})); % Randomly selects a number for a type option.
+    j = randi(numel(weaponOptions{depth})); % Randomly selects a number for a weapon option.
     
     type = string(typeOptions{depth}(i));   %Selects an enemy type option.
     weapon = string(weaponOptions{depth}(j));   %Selects an enemy weapon option.
@@ -61,5 +66,5 @@ function [thisEnemy] = newenemyGenerator(level,depth,location)
             spd = spd+(2*depth);
     end
     
-    thisEnemy = newenemy(type,weapon,str,def,spd,health,level,location);
+    thisEnemy = newenemy(type,weapon,str,def,spd,health,level,location); % Creates the new enemy.
 end

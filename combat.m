@@ -8,12 +8,12 @@ function [player,enemy] = combat(player,enemy)
         attack = enemy;
         defend = payer;
     end
-    while attack.isAlive() && defend.isAlive()
-        damage = attack.getStr() - defend.getDef();
+    while attack.isAlive() && defend.isAlive() % While both characters are alive, this contines to loop (Fight to the death)
+        damage = attack.getStr() - defend.getDef(); % Damage is attacker's strength minus defender's defense
         if damage < 0
             damage = 0;
         end
-        defend = defend.takeDamage(damage);
+        defend = defend.takeDamage(damage); % Deals damage to the defending player
         fprintf('%s dealt %i damage to %s\n',attack.getName(),damage,defend.getName());
         fprintf('%s has %i health left.\n',attack.getName(),attack.getHealth());
         fprintf('%s has %i health left.\n',defend.getName(),defend.getHealth());
@@ -21,7 +21,7 @@ function [player,enemy] = combat(player,enemy)
         attack = defend;
         defend = temp;
     end
-    if length(class(attack)) == length(class(player))
+    if length(class(attack)) == length(class(player)) % Determines whether or not the player is the attacker or defender
         if class(attack) == class(player)
             player = attack;
             enemy = defend;

@@ -11,16 +11,16 @@ classdef newplayer < character
     
     methods
         function p = newplayer(name,class,weapon,str,def,spd,luck,health,location) % Constructor for a new player.
-            p@character(weapon,str,def,spd,health,1,location);
-            if nargin == 0
+            p@character(weapon,str,def,spd,health,1,location); % Calls parent class (character) constructor.
+            if nargin == 0 % Checks for any null arguments.
                 error('Null argument in player constructor.')
-            elseif isstring(name) == false
+            elseif isstring(name) == false % Checks to make sure that name is a string.
                 error('Name needs to be a string.')
-            elseif isstring(class) == false
+            elseif isstring(class) == false % Checks to make sure that class is a string.
                 error('Class needs to be a string.')
-            elseif isscalar(luck) == false
+            elseif isscalar(luck) == false % Checks to make sure that luck is a number.
                 error('Luck needs to be scalar.')
-            else
+            else % Assigns values.
                 p.Name = name;
                 p.Class = class;
                 p.Luck = luck;
