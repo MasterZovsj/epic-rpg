@@ -1,9 +1,13 @@
-%% buildMap.m function
-% version 2.4
+%% BUILDMAP.M FUNCTION
+% VERSION 2.6.1
+%%
 function [map] = buildMap()
 %%
 %BUILDMAP v2.0 Creates the base map and rooms
-%   Detailed explanation goes here
+%   buildMap.m is a function called at the beginning of the game and at
+%   every new depth. It creates the main map for the player to interact
+%   with. It requires no inputs, and only outputs the end result of the
+%   map, which is then edited and changed by other functions.
 %#ok<*AGROW> 
 %#ok<*AND2>
 %% Initialize variables
@@ -46,7 +50,7 @@ for jj=1:30
     map(startMazeRows,startMazeColumns:mapColumns-2)=HALLWAY_CHAR;
 end
 
-%% generate a room
+%% Generate a Room
 locations=zeros([room_num,4]); %preallocates matrix to store locations of rooms
 for kk=1:room_num
     %randomly create the size of the room within 5x5 to 15x30
@@ -144,95 +148,109 @@ for ii=1:numel(rooms)
         end
     end
 end
-%% Build the maze HIGHLY IMPORTANT FOR LATER MAZE GENERATION
-% % % % startMazeColumns = randi(mapColumns); % pick a random starting point
-% % % % startMazeRows = randi(mapRows);       % pick a random starting point
-% % % % % make sure its not in a room
-% % % % while map(startMazeRows,startMazeColumns) ~= ":"
-% % % %     startMazeColumns = randi(mapColumns);
-% % % %     startMazeRows = randi(mapRows);
-% % % % end
-% % % % map(startMazeRows,startMazeColumns) = '+'; %set the inital point to a hallway
-% % % % cellList(1) = {[startMazeRows,startMazeColumns]}; %save the first cell of hallway
-% % % % while isempty(cellList) == false %change this to go until all cells are filled - DONE
-% % % %     pickCell=randi(numel(cellList));
-% % % %     getCell=cellList{end};%pickCell};
-% % % %     newColumn=getCell(2);
-% % % %     newRow=getCell(1);
-% % % %     direction = randi([1,4]);
-% % % %     
-% % % %     if (map(newRow+1,newColumn)=='+') + (map(newRow-1,newColumn)=='+') +...
-% % % %             (map(newRow,newColumn-1)=='+') + (map(newRow,newColumn+1)=='+') >= 2
-% % % %             
-% % % %         cellList(pickCell)=[];
-% % % %         
-% % % %     end
-% % % %     % Check to prevent choosing the opposite direction from last choice
-% % % %     while pastDirections(1)==1&&direction==2||...   if up, no down
-% % % %             pastDirections(1)==2&&direction==1||... if down, no up
-% % % %             pastDirections(1)==3&&direction==4||... if left, no right
-% % % %             pastDirections(1)==4&&direction==3%     if right, no left
-% % % %     direction = randi([1,4]);
-% % % %     end
-% % % %     switch(direction)
-% % % %         case 1 %up or decrease row
-% % % %             if newRow-1<2
-% % % %                 continue
-% % % %             elseif map(newRow-1,newColumn)=='#'||map(newRow-1,newColumn)=='+'||map(newRow-1,newColumn)=='D'
-% % % %                 continue
-% % % %             else
-% % % %             newRow=newRow-1;
-% % % %             end
-% % % %         case 2%down or increase row
-% % % %             if newRow+1>mapRows-1
-% % % %                 continue
-% % % %             elseif map(newRow+1,newColumn)=='#'||map(newRow+1,newColumn)=='+'||map(newRow+1,newColumn)=='D'
-% % % %                 continue
-% % % %             else
-% % % %             newRow=newRow+1;
-% % % %             end
-% % % %         case 3%left or decrease column
-% % % %             if newColumn-1<2
-% % % %                 continue
-% % % %             elseif map(newRow,newColumn-1)=='#'||map(newRow,newColumn-1)=='+'
-% % % %                 continue
-% % % %             else
-% % % %             newColumn=newColumn-1;
-% % % %             end
-% % % %         case 4%right or increase column
-% % % %             if newColumn+1>mapColumns-1
-% % % %                 continue
-% % % %             elseif map(newRow,newColumn+1)=='#'||map(newRow,newColumn+1)=='+'
-% % % %                 continue
-% % % %             else
-% % % %             newColumn=newColumn+1;
-% % % %             end
-% % % %     end
-% % % %     map(newRow,newColumn)='+';
-% % % %     cellList(end+1) = {[newRow,newColumn]};
-% % % %     disp(map)
-% % % %     %save the direction and delete the direction from three moves ago
-% % % %     %this is so we can constantly get the direction from 2 movies ago
-% % % %     pastDirections(end+1)=direction;
-% % % %     pastDirections(1)=[];
-% % % % 
-% % % % end
+%% Build the maze HIGHLY IMPORTANT FOR LATER MAZE GENERATION -- IGNORE FOR NOW
+while true == false %% used to condense code and make readable in report does not actually effect code
+% startMazeColumns = randi(mapColumns); % pick a random starting point
+% startMazeRows = randi(mapRows);       % pick a random starting point
+% % make sure its not in a room
+% while map(startMazeRows,startMazeColumns) ~= ":"
+%     startMazeColumns = randi(mapColumns);
+%     startMazeRows = randi(mapRows);
+% end
+% map(startMazeRows,startMazeColumns) = '+'; %set the inital point to a hallway
+% cellList(1) = {[startMazeRows,startMazeColumns]}; %save the first cell of hallway
+% while isempty(cellList) == false %change this to go until all cells are filled - DONE
+%     pickCell=randi(numel(cellList));
+%     getCell=cellList{end};%pickCell};
+%     newColumn=getCell(2);
+%     newRow=getCell(1);
+%     direction = randi([1,4]);
+%     
+%     if (map(newRow+1,newColumn)=='+') + (map(newRow-1,newColumn)=='+') +...
+%             (map(newRow,newColumn-1)=='+') + (map(newRow,newColumn+1)=='+') >= 2
+%             
+%         cellList(pickCell)=[];
+%         
+%     end
+%     % Check to prevent choosing the opposite direction from last choice
+%     while pastDirections(1)==1&&direction==2||...   if up, no down
+%             pastDirections(1)==2&&direction==1||... if down, no up
+%             pastDirections(1)==3&&direction==4||... if left, no right
+%             pastDirections(1)==4&&direction==3%     if right, no left
+%     direction = randi([1,4]);
+%     end
+%     switch(direction)
+%         case 1 %up or decrease row
+%             if newRow-1<2
+%                 continue
+%             elseif map(newRow-1,newColumn)=='#'||map(newRow-1,newColumn)=='+'||map(newRow-1,newColumn)=='D'
+%                 continue
+%             else
+%             newRow=newRow-1;
+%             end
+%         case 2%down or increase row
+%             if newRow+1>mapRows-1
+%                 continue
+%             elseif map(newRow+1,newColumn)=='#'||map(newRow+1,newColumn)=='+'||map(newRow+1,newColumn)=='D'
+%                 continue
+%             else
+%             newRow=newRow+1;
+%             end
+%         case 3%left or decrease column
+%             if newColumn-1<2
+%                 continue
+%             elseif map(newRow,newColumn-1)=='#'||map(newRow,newColumn-1)=='+'
+%                 continue
+%             else
+%             newColumn=newColumn-1;
+%             end
+%         case 4%right or increase column
+%             if newColumn+1>mapColumns-1
+%                 continue
+%             elseif map(newRow,newColumn+1)=='#'||map(newRow,newColumn+1)=='+'
+%                 continue
+%             else
+%             newColumn=newColumn+1;
+%             end
+%     end
+%     map(newRow,newColumn)='+';
+%     cellList(end+1) = {[newRow,newColumn]};
+%     disp(map)
+%     %save the direction and delete the direction from three moves ago
+%     %this is so we can constantly get the direction from 2 movies ago
+%     pastDirections(end+1)=direction;
+%     pastDirections(1)=[];
+% 
+% end
+end
 %% call event generator 
-% Does not currently work
 [ii,jj]=find(map=='!');
 kk=[ii,jj];
-
 for zz=1:length(kk)
     getEvent = kk(zz,:);
     map(getEvent(1),getEvent(2)) = generateEvent(DEPTH,zz,getEvent);
 end
 %% Functions used by buildMap.m
+%%% combineOverlap
+% Checks for any rooms that overlap using the one loophole available in the
+% logic. If a corner of a room is not located within another room, but
+% overlaps creating a plus symbol-like room (+), then this function combines
+% them into one room by deleting the inside walls.
     function [me] = combineOverlap(up,down,right,left,me)
         if me == ROOMWALL_CHAR && ((up==MOVEABLE_CHAR&&down==MOVEABLE_CHAR)||(right==MOVEABLE_CHAR&&left==MOVEABLE_CHAR))
             me=MOVEABLE_CHAR;  
 
         end
     end
+%%% generateEvent
+% When called it takes the input of depth, a standard counter, and location
+% to create a new event. It then takes the depth to choose the correct
+% level of enemy to generate, the counter to name the enemies in increasing
+% level to prevent overwriting enemies, and the location to save the
+% location of enemies. 
+
+%%%Techincally this fuction should generate some
+% treasure tiles on occation but that aspect has been disabled
     function[icon] = generateEvent(depth,counter,location)
         level=randi([0,5]);
 %         if randi([0,1])==1

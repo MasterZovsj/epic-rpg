@@ -33,10 +33,7 @@ TODO: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;-Depth for multiple maps and increasing difficulty<br>
 &nbsp;&nbsp;+Player<br>
 &nbsp;&nbsp;&nbsp;&nbsp;-Inventory<br>
-&nbsp;&nbsp;&nbsp;&nbsp;-Movement within the new map (pull main logic from buildMap_old.m, maybe create separate function)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;-Update map with each movement<br>
 &nbsp;&nbsp;+Enemies<br>
-&nbsp;&nbsp;&nbsp;&nbsp;-Pool of enemies with stats to pull from for encounter generators<br>
 &nbsp;&nbsp;+Combat<br>
 &nbsp;&nbsp;&nbsp;&nbsp;-When player moves into monster square initiate combat<br>
 &nbsp;&nbsp;&nbsp;&nbsp;-Combat is Damage - Defense with 1/Speed chance to miss<br>
@@ -46,7 +43,6 @@ TODO: <br>
 &nbsp;&nbsp;+Main GUI<br>
 &nbsp;&nbsp;&nbsp;&nbsp;-High score screen at end<br>
 &nbsp;&nbsp;&nbsp;&nbsp;-Character images for class selection<br>
-&nbsp;&nbsp;&nbsp;&nbsp;-Implement Lore<br>
 MORE MAYBE<br>
 
 Inspiration:

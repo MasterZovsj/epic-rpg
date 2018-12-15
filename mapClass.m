@@ -1,7 +1,7 @@
 classdef mapClass
-    %MAP class where the map, player location, enemy location, and more are
-    %stored
-    %   Detailed explanation goes here
+    %MAP class where the map is stored
+    %   Stores the map in its own class. Created to add more functionality
+    %   to it later, such as viewable map, past maps, and more.
     
     properties
         fullMap
