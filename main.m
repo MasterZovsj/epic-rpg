@@ -10,7 +10,7 @@
 *                           Gary  Jackson                                 *
 *                           Troy Plageman                                 *
 *                                                                         *
-*     Robert Pitman-Gammon           Dec. 10 2018           Final Project *
+*     Robert Pitman-Gammon           Dec. 15 2018           Final Project *
 ***************************************************************************
 %}
 
@@ -43,13 +43,16 @@ EVENT_CHAR='!';
 DEPTH = 1;
 currentLocation = [];
 %% MAIN CODE
-thisPlayer=newplayerCreation();
-thisMap=mapClass(buildMap());
-disp(thisMap.fullMap)
-while thisPlayer.Health >= 0
-    currentLocation=movePlayer(currentLocation,thisMap);
+thisPlayer=newplayerCreation(); % create new player object
+thisMap=mapClass(buildMap()); % create new map object
+disp(thisMap.fullMap) %display the initial map
+while thisPlayer.Health >= 0 % so long as the player is not dead, keep going
+    %give the current location of the player to the move player function
+    %then output the new location as the current location
+    currentLocation=movePlayer(currentLocation,thisMap); 
+    %change the player location
     thisPlayer = thisPlayer.updateLocation(currentLocation);
 end
 %% END GAME
-fprintf('YOU DUN DIED SON\n')
-% build an epic credits scence by using the timer function
+fprintf('YOU DUN DIED SON\n') %you lose?
+% build an epic credits scence by using the timer function -- lol not today
