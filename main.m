@@ -30,6 +30,7 @@ global MASTERMAP_IMPASSABLE_CHAR
 global EVENT_CHAR
 global DEPTH
 %% Initialize variables
+
 PLAYER_SYMBOL = '@';
 START_GAME = true;
 HALLWAY_CHAR=' ';

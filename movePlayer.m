@@ -62,3 +62,7 @@ if thisMap.fullMap(currentLocation(1),currentLocation(2))==MASTERMAP_IMPASSABLE_
     thisMap.fullMap(currentLocation(1),currentLocation(2))=PLAYER_SYMBOL;%just why, nothing changed
     fprintf('You cannot walk through walls!\n') %maybe insult them too
 end
+%% Check for Combat
+% for 
+% if thisMap.fullMap(currentLocation(1),currentLocation(2))==
+% end
